@@ -7,11 +7,13 @@ This repository contains R code for tidying data
 Make sure you have the following R packages installed:
 
 - `tidyverse`
+- `dplyr`
 
 You can install them using the following commands:
 
 ```R
 install.packages("tidyverse")
+install.packages("dplyr")
 ```
 
 ## Data 

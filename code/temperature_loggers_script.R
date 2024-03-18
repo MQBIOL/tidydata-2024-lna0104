@@ -1,6 +1,7 @@
 ### Assignment 1: Tidy data package
 # Load library ------
 library(tidyverse)
+library(dplyr)
 
 # Load data -----
 rm(list=ls())
@@ -13,12 +14,26 @@ for (dataName in nameList) {
   # Rename columns
   colnames(rawData) <- c("Date", "minTemp", "maxTemp", "minHumid", "maxHumid", "minDewPoint", "maxDewPoint")
   
-  tidyData <- rawData %>%
-    # Convert Date column into Day, Month, and Year
-    separate(Date, into = c("Day", "Month", "Year"))  %>% 
+  # Process the date data
+  dateData <- rawData["Date"]  %>%
+    # Convert Date column into D1, D2 and D3
+    separate(Date, into = c("D1", "D2", "D3")) %>%
+    # Select the right day column based on max value of column
+    mutate(Day = if(max(as.numeric(D1)) > 12) D1 else D2) %>% 
+    mutate(Month = ifelse(Day==D1, D2, D1)) %>%
+    # Convert all year values to YYYY format
+    rowwise() %>% 
+    mutate(Year = ifelse(as.numeric(D3) < 2000, paste0("20", D3), D3)) %>%
+    select(c("Day","Month","Year"))
+  
+  #Process the min max data
+  minMaxData <- rawData[-1] %>%
     # Use strsplit to get only the number value from columns starting with "min" or "max"
     mutate(across(starts_with("min") | starts_with("max"), 
-                  ~ as.numeric(sapply(strsplit(as.character(.), " ", useBytes = TRUE), function(x) x[1])))) %>%
+                  ~ as.numeric(sapply(strsplit(as.character(.), " ", useBytes = TRUE), function(x) x[1]))))
+  
+  # Combine both processed data and pivot_longer
+  tidyData <- cbind(dateData, minMaxData) %>%
     pivot_longer(cols = 4:9, names_to = "Measure", values_to = "Value")
   
   # Add tidyData to resultList
