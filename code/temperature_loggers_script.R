@@ -2,12 +2,11 @@
 # Load library ------
 library(tidyverse)
 library(dplyr)
-library(here)
 
 rm(list=ls())
 
 # Set working directory
-tmp <- this.path::here()
+tmp <- getwd()
 setwd(substr(tmp, 1, nchar(tmp)-4))
 
 # Load data -----
