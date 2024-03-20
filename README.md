@@ -1,6 +1,9 @@
 # Assignment 1: Tidy data package
 
-This repository contains R code for tidying data
+This repository contains R code for tidying data.
+
+R version R version 4.3.1 (2023-06-16) was used for all code contained within this repository.
+
 
 ## Dependencies
 
