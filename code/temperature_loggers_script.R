@@ -2,12 +2,17 @@
 # Load library ------
 library(tidyverse)
 library(dplyr)
+library(here)
+
+rm(list=ls())
+
+# Set working directory
+tmp <- this.path::here()
+setwd(substr(tmp, 1, nchar(tmp)-4))
 
 # Load data -----
-rm(list=ls())
 nameList <- c("PJ Sun 1 tiny tag 1 daily min max", "PJ Shade 1 tiny tag 1 daily min max", "PJ Shade 1 tiny tag 2 daily min max") 
 resultList <- list()
-
 for (dataName in nameList) {
   # Read CSV file
   rawData <- read_csv(paste0("data/", dataName, ".csv"))
