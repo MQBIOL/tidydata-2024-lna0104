@@ -18,7 +18,6 @@ install.packages("dplyr")
 
 ## Data 
 
-### Dataset 1
 The data used in this project are stored in the 'data/' directory. The file names are:
 
 - PJ Sun 1 tiny tag 1 daily min max.csv
@@ -46,10 +45,19 @@ These input files include one row per measurement day. For each day the minimum 
 
 The tidied data are stored in 'result/' directory.
 
+Each file in this directory contains the following columns:
+
+- Day: Represented in the form DD.
+- Month: Represented in the form MM.
+- Year: Represented in the form YYYY.
+- Measure: Indicates one of the following measurements: "minTemp" for minimum temperature (ºC), "maxTemp" for maximum temperature (ºC), "minHumid" for minimum relative humidity (%RH), "maxHumid" for maximum relative humidity (%RH), "minDewPoint" for minimum dew point (ºC), or "maxDewPoint" for maximum dew point (ºC).
+- Value: Indicates the recorded value of the corresponding measurement.
+- Unit: Indicates the unit of measurement.
+
 ## Acknowledgments
 The dataset 1 provided by Dr Natalie Jones from the lab of Prof. Margie Mayfield. Information provided by Dr John Dwyer.
 
 ## Authors
-This project was developed by the following individuals:
+This project was developed by:
 - Le Na Ngo https://github.com/lna0104
 
