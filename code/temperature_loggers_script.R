@@ -5,10 +5,6 @@ library(dplyr)
 
 rm(list=ls())
 
-# Set working directory
-tmp <- getwd()
-setwd(substr(tmp, 1, nchar(tmp)-4))
-
 # Load data -----
 nameList <- c("PJ Sun 1 tiny tag 1 daily min max", "PJ Shade 1 tiny tag 1 daily min max", "PJ Shade 1 tiny tag 2 daily min max") 
 resultList <- list()
@@ -38,7 +34,11 @@ for (dataName in nameList) {
   
   # Combine both processed data and pivot_longer
   tidyData <- cbind(dateData, minMaxData) %>%
-    pivot_longer(cols = 4:9, names_to = "Measure", values_to = "Value")
+    pivot_longer(cols = 4:9, names_to = "Measure", values_to = "Value") %>%
+    mutate(Unit = case_when(
+      Measure %in% c("minTemp", "maxTemp", "minDewPoint", "maxDewPoint") ~ "C",
+      Measure %in% c("minHumid", "maxHumid") ~ "%RH",
+    ))
   
   # Add tidyData to resultList
   resultList <- c(resultList, list(tidyData))
