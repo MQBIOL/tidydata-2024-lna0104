@@ -44,7 +44,7 @@ These input files include one row per measurement day. For each day the minimum 
 “PJ Sun 1 tiny tag 1 daily min max.csv” includes the data for the first logger deployed in the sunny site at West Perenjori Nature Reserve from 19th July 2019 to 15th January 2021. There was only one logger deployed in this site. Date was recorded as “day/month/year” format.
 
 
-## Results
+## Result
 
 The tidied data are stored in 'result/' directory.
 
