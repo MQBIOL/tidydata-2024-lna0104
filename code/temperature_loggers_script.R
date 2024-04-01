@@ -1,4 +1,3 @@
-### Assignment 1: Tidy data package
 # Load library ------
 library(tidyverse)
 library(dplyr)
@@ -11,8 +10,13 @@ resultList <- list()
 for (dataName in nameList) {
   # Read CSV file
   rawData <- read_csv(paste0("data/", dataName, ".csv"))
+  # Extract whether it's sun or shade from the dataName
+  condition <- ifelse(grepl("sun", dataName, ignore.case = TRUE), "Sun", "Shade")
+  # Add a new column indicating sun or shade
+  rawData <- mutate(rawData, Condition = condition)
+  
   # Rename columns
-  colnames(rawData) <- c("Date", "minTemp", "maxTemp", "minHumid", "maxHumid", "minDewPoint", "maxDewPoint")
+  colnames(rawData) <- c("Date", "minTemp", "maxTemp", "minHumid", "maxHumid", "minDewPoint", "maxDewPoint", "Condition")
   
   # Process the date data
   dateData <- rawData["Date"]  %>%
@@ -48,4 +52,3 @@ for (dataName in nameList) {
 resultData <- reduce(resultList, bind_rows)
 # Write to csv file
 write.csv(resultData, "result/tidy_dataset_1.csv", row.names = FALSE)
-
